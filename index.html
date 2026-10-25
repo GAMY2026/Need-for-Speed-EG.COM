@@ -362,6 +362,48 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
     transform: none;
   }
 }
+  /* إخفاء النصوص القديمة فقط */
+.nfs-hero-copy .nfs-eyebrow,
+.nfs-hero-copy h1,
+.nfs-hero-copy > p,
+.nfs-hero-copy .nfs-speed-label,
+.nfs-hero-copy .hint {
+  display: none !important;
+}
+
+/* تثبيت زر اكتشف الموديلات فوق الصورة */
+.nfs-hero-copy {
+  display: block !important;
+  position: absolute !important;
+  top: 55%;
+  right: 8%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: auto;
+  max-width: none;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* إظهار الزر الحقيقي وتشغيله */
+.nfs-hero-copy .nfs-hero-actions {
+  display: flex !important;
+  margin: 0 !important;
+}
+
+.nfs-hero-copy .nfs-main-btn {
+  display: inline-flex !important;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .nfs-hero-copy {
+    top: auto;
+    right: 5%;
+    bottom: 10%;
+    transform: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -396,19 +438,12 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
 
   <div class="wrap">
  <nav><b class="gt">NEED FOR SPEED</b> <div><button class="ghost" id="again">اسمع المحرك</button><a class="btn" style="padding:8px 20px;font-size:15px" href="#book">احجز تجربة قيادة</a></div></nav>
-    
-<div class="txt nfs-hero-copy">
+    <div class="txt nfs-hero-copy">
   <div class="nfs-hero-actions">
     <a class="btn nfs-main-btn" href="#bikes">
       اكتشف الموديلات <span aria-hidden="true">↗</span>
     </a>
   </div>
-</div>
-</div>
-
-  <span class="hint">
-    حرّك الماوس أو المس الشاشة لتشغيل الأنوار
-  </span>
 </div>
 </div>
 
