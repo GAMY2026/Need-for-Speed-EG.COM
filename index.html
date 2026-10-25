@@ -404,6 +404,34 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
     transform: none;
   }
 }
+
+  /* زر اكتشف الموديلات فوق صورة السباق */
+.nfs-hero-copy {
+  position: absolute !important;
+  top: 55% !important;
+  right: 8% !important;
+  z-index: 20 !important;
+  width: auto !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+}
+
+.nfs-hero-copy .nfs-main-btn {
+  display: inline-flex !important;
+  align-items: center;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .nfs-hero-copy {
+    top: auto !important;
+    right: 5% !important;
+    bottom: 10% !important;
+    transform: none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -439,12 +467,9 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
   <div class="wrap">
  <nav><b class="gt">NEED FOR SPEED</b> <div><button class="ghost" id="again">اسمع المحرك</button><a class="btn" style="padding:8px 20px;font-size:15px" href="#book">احجز تجربة قيادة</a></div></nav>
     <div class="txt nfs-hero-copy">
-  <div class="nfs-hero-actions">
-    <a class="btn nfs-main-btn" href="#bikes">
-      اكتشف الموديلات <span aria-hidden="true">↗</span>
-    </a>
-  </div>
-</div>
+  <a class="btn nfs-main-btn" href="#bikes">
+    اكتشف الموديلات <span aria-hidden="true">↗</span>
+  </a>
 </div>
 
   <div class="city" aria-hidden="true"></div>
