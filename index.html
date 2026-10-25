@@ -356,6 +356,52 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
     transform: none !important;
   }
 }
+  /* إخفاء الكلام والزر المرسومين داخل صورة السباق */
+.hero::after {
+  background: linear-gradient(
+    90deg,
+    rgba(4, 5, 10, 0) 0%,
+    rgba(4, 5, 10, .12) 38%,
+    rgba(4, 5, 10, .96) 52%,
+    #04050a 59%,
+    #04050a 100%
+  ) !important;
+  opacity: 1 !important;
+}
+
+/* عدم إزالة التغطية عند تحريك الماوس */
+.hero.lit::after {
+  opacity: 1 !important;
+}
+
+/* إظهار زر اكتشف الموديلات الحقيقي فوق الصورة */
+.nfs-hero-copy {
+  display: block !important;
+  position: absolute !important;
+  top: 55% !important;
+  right: 8% !important;
+  z-index: 20 !important;
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+}
+
+.nfs-hero-copy .nfs-main-btn {
+  display: inline-flex !important;
+  position: relative;
+  z-index: 21;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .nfs-hero-copy {
+    top: auto !important;
+    right: 5% !important;
+    bottom: 10% !important;
+    transform: none !important;
+  }
+}
 </style>
 </head>
 <body>
