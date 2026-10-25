@@ -325,6 +325,23 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
   display: none !important;
 }
 
+  
+/* إخفاء النصوص القديمة فوق صورة السباق */
+.nfs-hero-copy .nfs-eyebrow,
+.nfs-hero-copy h1,
+.nfs-hero-copy > p,
+.nfs-hero-copy .nfs-speed-label,
+.nfs-hero-copy .hint {
+  display: none !important;
+}
+
+/* الحفاظ على زر اكتشاف الموديلات */
+.nfs-hero-copy .nfs-hero-actions {
+  display: flex;
+  position: relative;
+  z-index: 5;
+}
+
 </style>
 </head>
 <body>
