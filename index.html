@@ -502,6 +502,28 @@ const bikes=[
 {n:'ظل 350 كلاسيك',t:'cruiser',c:'#5d9b86',cc:'350 سي سي',hp:'20 حصان',p:'210,000'},
 {n:'نبض 150',t:'city',c:'#8a76d6',cc:'150 سي سي',hp:'14 حصان',p:'72,000'},
 {n:'سكوت 125',t:'city',c:'#d97aa0',cc:'125 سي سي',hp:'10 حصان',p:'58,000'}];
+  
+const BIKES_STORAGE_KEY = "nfs_bikes_v1";
+
+try {
+  const savedBikes = localStorage.getItem(BIKES_STORAGE_KEY);
+
+  if (savedBikes) {
+    const parsedBikes = JSON.parse(savedBikes);
+
+    if (Array.isArray(parsedBikes)) {
+      bikes.splice(0, bikes.length, ...parsedBikes);
+    }
+  } else {
+    localStorage.setItem(
+      BIKES_STORAGE_KEY,
+      JSON.stringify(bikes)
+    );
+  }
+} catch (error) {
+  console.error("تعذر تحميل بيانات الموتوسيكلات:", error);
+}
+
 const grid=document.getElementById('grid'),sel=document.getElementById('model');
 function draw(f){grid.innerHTML=bikes.filter(b=>f==='all'||b.t===f).map(b=>
 `<article class="bike" style="--c:${b.c}"><svg viewBox="0 0 260 130" role="img" aria-label="${b.n}"><use href="#bike"/></svg><h3>${b.n}</h3><div class="specs"><span>${b.cc}</span><span>${b.hp}</span></div><div class="price"><b>${b.p} ج.م</b><button data-m="${b.n}">جرّبه</button></div></article>`).join('')}
