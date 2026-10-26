@@ -94,6 +94,16 @@ td{font-size:14px}
 
     <section class="panel">
       <h2>الموديلات الحالية (<span id="bikeCount">0</span>)</h2>
+      
+<div style="margin-bottom:16px">
+  <label for="bikeSearch">البحث عن موتوسيكل</label>
+  <input
+    id="bikeSearch"
+    type="search"
+    placeholder="ابحث بالاسم أو الفئة أو سعة المحرك..."
+  >
+</div>
+
       <div class="table-wrap">
         <table>
           <thead><tr><th>الاسم</th><th>الفئة</th><th>المحرك</th><th>القوة</th><th>السعر</th><th>الإجراءات</th></tr></thead>
@@ -155,8 +165,17 @@ function renderBikes() {
   $("bikeCount").textContent = bikes.length;
   const body = $("bikeRows");
   body.replaceChildren();
-
+const query = $("bikeSearch").value.trim().toLocaleLowerCase("ar");
   bikes.forEach((bike, index) => {
+    const searchable = [
+  bike.n,
+  categoryName(bike.t),
+  bike.cc,
+  bike.hp,
+  bike.p
+].join(" ").toLocaleLowerCase("ar");
+
+if (query && !searchable.includes(query)) return;
     const tr = document.createElement("tr");
     [bike.n, categoryName(bike.t), bike.cc, bike.hp, bike.p + " ج.م"].forEach(value => {
       const td = document.createElement("td");
@@ -229,7 +248,7 @@ function deleteBike(index) {
   renderBikes();
   $("tableMessage").textContent = "تم حذف الموتوسيكل وحفظ القائمة في هذا المتصفح.";
 }
-
+$("bikeSearch").addEventListener("input", renderBikes);
 $("loginForm").addEventListener("submit", event => {
   event.preventDefault();
   if ($("username").value === ADMIN_USER &&
