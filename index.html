@@ -89,7 +89,7 @@ input,select{width:100%;padding:12px;font:300 16px 'Readex Pro',sans-serif;backg
 #ok{display:none;padding:16px;border-inline-start:4px solid var(--gold);background:var(--panel);max-width:520px}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-size:14px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rider{transform:none}}
-  
+
 /* NEED FOR SPEED - Intro Racing Animation */
 #intro {
   position: fixed;
@@ -402,6 +402,81 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
     transform: none !important;
   }
 }
+
+/* ===== NFS premium bike cards ===== */
+.grid{grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:30px;perspective:1200px}
+.vc{--cut:30px;--px:50%;--py:30%;position:relative;padding:1px;
+  background:linear-gradient(155deg,var(--c) 0%,#2a2d34 32%,#16181d 68%,var(--c) 100%);
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
+  transition:transform .18s ease-out;will-change:transform}
+.vc-in{position:relative;overflow:hidden;background:#0c0e12;
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut))}
+/* ملمس معدن مصقول + لمعة تتبع الماوس */
+.vc-in::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+.vc-in::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(420px circle at var(--px) var(--py),rgba(255,255,255,.10),transparent 55%)}
+
+.vc-stage{position:relative;height:215px;display:grid;place-items:end center;overflow:hidden;
+  background:radial-gradient(ellipse 70% 62% at 50% 100%,color-mix(in srgb,var(--c) 45%,transparent),transparent 72%),linear-gradient(#0c0e12,#12141a)}
+.vc-stage::after{content:"";position:absolute;left:8%;right:8%;bottom:34px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--c),transparent)}
+.vc-ghost{position:absolute;top:10px;left:0;right:0;text-align:center;direction:ltr;
+  font:700 128px/1 'Reem Kufi',sans-serif;letter-spacing:-2px;color:transparent;
+  -webkit-text-stroke:1px color-mix(in srgb,var(--c) 50%,transparent);opacity:.5;transition:opacity .4s}
+.vc:hover .vc-ghost{opacity:.95}
+.vc-tag{position:absolute;top:16px;right:18px;z-index:2;display:flex;align-items:center;gap:8px;
+  padding:3px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(12,14,18,.7);
+  font-size:12px;color:var(--ink)}
+.vc-tag i{width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.vc-rig{position:relative;z-index:1;width:84%;margin-bottom:34px}
+.vc-rig svg{display:block;width:100%;height:auto;color:var(--ink)}
+.vc-rig .main{filter:drop-shadow(0 10px 18px color-mix(in srgb,var(--c) 40%,transparent))}
+.vc-rig .refl{position:absolute;left:0;top:100%;transform:scaleY(-1);opacity:.22;
+  -webkit-mask-image:linear-gradient(to top,#000,transparent 65%);mask-image:linear-gradient(to top,#000,transparent 65%)}
+.vc:hover .w{animation:sp .7s linear infinite}
+
+.vc-body{position:relative;z-index:2;padding:22px 26px 0}
+.vc-body h3{font-size:31px}
+.vc-meta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.vc-meta small{display:block;color:var(--mute);font-size:12px}
+.vc-meta b{font:600 17px 'Readex Pro',sans-serif}
+.vc-gauge{display:grid;grid-template-columns:repeat(16,1fr);gap:3px;height:7px;margin:14px 0 22px}
+.vc-gauge i{background:#22252c;transform:skewX(-20deg)}
+.vc-gauge i.on{background:var(--c);box-shadow:0 0 8px var(--c);animation:vcOn .5s both;animation-delay:calc(var(--i)*35ms)}
+@keyframes vcOn{from{opacity:.1}to{opacity:1}}
+
+.vc-foot{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;
+  padding:16px 26px 20px;border-top:1px solid rgba(200,169,106,.28);
+  background:linear-gradient(90deg,rgba(200,169,106,.12),transparent 75%)}
+.vc-foot small{display:block;color:var(--mute);font-size:12px}
+.vc-price b{font:700 28px/1.2 'Reem Kufi',sans-serif;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.vc-price span{font-size:13px;color:var(--gold);margin-inline-start:4px}
+.vc-go{background:none;border:1px solid var(--gold);border-radius:999px;color:var(--gold);padding:10px 22px;
+  font:600 15px 'Readex Pro',sans-serif;cursor:pointer;transition:background .25s,color .25s}
+.vc-go:hover,.vc:hover .vc-go{background:var(--g);color:#16130b}
+@media (max-width:420px){.grid{grid-template-columns:1fr}.vc-ghost{font-size:108px}}
+
+/* ===== عنوان بشكل علم سباق ===== */
+.flag-title{display:flex;align-items:stretch;gap:0;width:fit-content;margin-bottom:14px}
+.flag-title::before{content:"";flex:0 0 5px;border-radius:3px;background:linear-gradient(#f0dfb2,#8a6a2c);box-shadow:0 0 12px rgba(200,169,106,.4)}
+.flag-title span{display:inline-block;padding:.62em .6em;transform-origin:right center;color:#f6f1e3;text-shadow:0 2px 10px rgba(0,0,0,.6);
+  background:
+    conic-gradient(#f4f1e8 25%,#23252b 0 50%,#f4f1e8 0 75%,#23252b 0) 0 0/.5em .5em repeat-x,
+    conic-gradient(#23252b 25%,#f4f1e8 0 50%,#23252b 0 75%,#f4f1e8 0) 0 100%/.5em .5em repeat-x,
+    #101218;
+  animation:flagWave 4.5s ease-in-out infinite,flagChecks 6s linear infinite}
+@keyframes flagWave{
+  0%,100%{transform:perspective(700px) rotateY(0) skewY(0)}
+  50%{transform:perspective(700px) rotateY(-7deg) skewY(-1.2deg)}}
+@keyframes flagChecks{to{background-position:.5em 0,.5em 100%,0 0}}
+
+/* ===== فيديو خلفية قسم الموديلات ===== */
+#bikes{position:relative;isolation:isolate;overflow:hidden}
+.bikes-video{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:center;background:#05070b}
+.bikes-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+  linear-gradient(180deg,var(--bg) 0%,rgba(11,12,15,0) 12%,rgba(11,12,15,0) 88%,var(--bg) 100%),
+  rgba(11,12,15,.30)}
 </style>
 </head>
 <body>
@@ -441,36 +516,15 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
     اكتشف الموديلات <span aria-hidden="true">↗</span>
   </a>
 </div>
-    <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#fff3c4" stop-opacity=".85"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0dfb2"/><stop offset="1" stop-color="#a8843f"/></linearGradient>
-   </defs>
-   <polygon class="beam" points="392,148 1000,60 1000,276 392,160" fill="url(#beam)"/>
-   <g class="bob">
-    <g class="spin" style="color:#d8cfba"><use href="#wheel" x="68" y="168" width="104" height="104"/></g>
-    <g class="spin" style="color:#d8cfba"><use href="#wheel" x="348" y="168" width="104" height="104"/></g>
-    <path d="M235 238L150 250L96 244" stroke="#8d8c88" stroke-width="12" stroke-linecap="round" fill="none"/>
-    <path d="M120 220L240 222" stroke="#33363e" stroke-width="10"/>
-    <path d="M190 188H285L292 240H196Z" fill="#23262d" stroke="#555"/><rect x="215" y="170" width="52" height="20" fill="#3a3d45"/>
-    <path d="M400 220L350 135" stroke="url(#gold)" stroke-width="9" stroke-linecap="round"/>
-    <path d="M205 158Q250 118 318 132L350 150L330 178L225 182Z" fill="url(#gold)"/>
-    <path d="M138 168Q180 148 228 158L226 176L132 182Z" fill="#1b1d22" stroke="#444"/>
-    <path d="M108 158L142 160L132 182L100 176Z" fill="url(#gold)"/><circle class="tail" cx="101" cy="166" r="5"/>
-    <path d="M335 125L392 140L378 172L345 165Z" fill="url(#gold)"/><ellipse class="lamp" cx="388" cy="152" rx="9" ry="12"/>
-    <path d="M338 124L356 96L372 134Z" fill="#9fd4ff" opacity=".35"/>
-    <path d="M352 130L330 106" stroke="#ddd" stroke-width="7" stroke-linecap="round"/>
-    <path class="scarf" d="M276 76Q240 56 196 82Q236 80 258 102Z" fill="#c8a96a"/>
-    <path d="M200 162L268 182L246 228" stroke="#2c3a5a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none"/><ellipse cx="252" cy="232" rx="20" ry="9" fill="#111"/>
-    <path d="M196 160L282 104" stroke="#1d1f26" stroke-width="42" stroke-linecap="round"/><path d="M208 152L272 112" stroke="#c8a96a" stroke-width="5" stroke-linecap="round"/>
-    <path d="M276 108L304 134L330 108" stroke="#23262e" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="331" cy="106" r="9" fill="#c8a96a"/>
-    <circle cx="298" cy="76" r="31" fill="#f1ece0"/><path d="M270 70Q298 40 328 70" stroke="url(#gold)" stroke-width="7" fill="none"/>
-    <path d="M308 62Q338 66 332 90L306 92Z" fill="#161b26"/><circle cx="321" cy="77" r="5" fill="#fff"/><circle cx="323" cy="77" r="2.5" fill="#000"/>
-   </g>
-  </svg></div>
+  </div>
   <div class="road" aria-hidden="true"><i></i></div>
 </header>
 
-<section id="bikes"><div class="wrap">
-  <h2>الموديلات المتاحة</h2>
+<section id="bikes">
+  <video class="bikes-video" id="bikesVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="./bikes-bg.mp4" type="video/mp4"></video>
+  <div class="bikes-shade"></div>
+<div class="wrap">
+  <h2 class="flag-title"><span>الموديلات المتاحة</span></h2>
   <p class="sub">حرّك الماوس على أي موتوسيكل وشوف العجل بيلف.</p>
   <div class="filters" id="filters" role="group" aria-label="تصنيف">
     <button aria-pressed="true" data-f="all">الكل</button><button aria-pressed="false" data-f="sport">سبورت</button><button aria-pressed="false" data-f="cruiser">كروزر</button><button aria-pressed="false" data-f="city">مدينة</button>
@@ -502,7 +556,7 @@ const bikes=[
 {n:'ظل 350 كلاسيك',t:'cruiser',c:'#5d9b86',cc:'350 سي سي',hp:'20 حصان',p:'210,000'},
 {n:'نبض 150',t:'city',c:'#8a76d6',cc:'150 سي سي',hp:'14 حصان',p:'72,000'},
 {n:'سكوت 125',t:'city',c:'#d97aa0',cc:'125 سي سي',hp:'10 حصان',p:'58,000'}];
-  
+
 const BIKES_STORAGE_KEY = "nfs_bikes_v1";
 
 try {
@@ -525,15 +579,53 @@ try {
 }
 
 const grid=document.getElementById('grid'),sel=document.getElementById('model');
-function draw(f){grid.innerHTML=bikes.filter(b=>f==='all'||b.t===f).map(b=>
-`<article class="bike" style="--c:${b.c}"><svg viewBox="0 0 260 130" role="img" aria-label="${b.n}"><use href="#bike"/></svg><h3>${b.n}</h3><div class="specs"><span>${b.cc}</span><span>${b.hp}</span></div><div class="price"><b>${b.p} ج.م</b><button data-m="${b.n}">جرّبه</button></div></article>`).join('')}
+const TYPE_AR={sport:'سبورت',cruiser:'كروزر / كلاسيك',city:'مدينة'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=s=>parseInt(String(s).replace(/[^0-9]/g,''),10)||0;
+function tilt(card){
+  card.addEventListener('pointermove',e=>{
+    if(e.pointerType==='touch')return;
+    const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    card.style.setProperty('--px',x*100+'%');card.style.setProperty('--py',y*100+'%');
+    card.style.transform=`rotateY(${(x-.5)*-8}deg) rotateX(${(y-.5)*6}deg) translateY(-6px)`;
+  });
+  card.addEventListener('pointerleave',()=>{card.style.transform=''});
+}
+function draw(f){
+  const max=Math.max(1,...bikes.map(b=>num(b.hp)));
+  grid.innerHTML=bikes.filter(b=>f==='all'||b.t===f).map(b=>{
+    const hp=num(b.hp),on=Math.max(1,Math.round(hp/max*16));
+    const segs=Array.from({length:16},(_,i)=>`<i class="${i<on?'on':''}" style="--i:${i}"></i>`).join('');
+    return `<article class="vc" style="--c:${esc(b.c)}"><div class="vc-in">
+<div class="vc-stage"><div class="vc-ghost" aria-hidden="true">${hp||''}</div>
+<span class="vc-tag"><i></i>${esc(TYPE_AR[b.t]||b.t)}</span>
+<div class="vc-rig"><svg class="main" viewBox="0 0 260 130" role="img" aria-label="${esc(b.n)}"><use href="#bike"/></svg><svg class="refl" viewBox="0 0 260 130" aria-hidden="true"><use href="#bike"/></svg></div></div>
+<div class="vc-body"><h3>${esc(b.n)}</h3>
+<div class="vc-meta"><div><small>سعة المحرك</small><b>${esc(b.cc)}</b></div><div><small>القوة</small><b>${esc(b.hp)}</b></div></div>
+<div class="vc-gauge" aria-hidden="true">${segs}</div></div>
+<div class="vc-foot"><div class="vc-price"><small>السعر</small><b>${esc(b.p)}</b><span>ج.م</span></div>
+<button class="vc-go" data-m="${esc(b.n)}" aria-label="احجز تجربة ${esc(b.n)}">جرّبه ↗</button></div>
+</div></article>`}).join('');
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)grid.querySelectorAll('.vc').forEach(tilt);
+}
 draw('all');
-sel.innerHTML=bikes.map(b=>`<option>${b.n}</option>`).join('');
+sel.innerHTML=bikes.map(b=>`<option>${esc(b.n)}</option>`).join('');
 document.getElementById('filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;
 document.querySelectorAll('#filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw(b.dataset.f)};
 grid.onclick=e=>{const b=e.target.closest('button[data-m]');if(!b)return;sel.value=b.dataset.m;document.getElementById('book').scrollIntoView()};
 document.getElementById('form').onsubmit=e=>{e.preventDefault();const f=e.target,o=document.getElementById('ok');
 o.textContent='تم استلام طلبك يا '+f.n.value+'. هنكلمك على '+f.p.value+' لتأكيد تجربة '+f.m.value+'.';o.style.display='block';f.reset()};
+
+// تشغيل فيديو الخلفية
+const bv=document.getElementById('bikesVideo');
+if(bv){
+  const go=()=>{const p=bv.play();if(p&&p.catch)p.catch(()=>{})};
+  go();
+  ['pointerdown','touchstart','scroll'].forEach(ev=>addEventListener(ev,()=>{if(bv.paused)go()},{once:true,passive:true}));
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)go();else bv.pause()}),{threshold:.05}).observe(bv.parentElement);
+  }
+}
 
 // headlight turns on when the pointer reaches the hero
 const hero=document.getElementById('hero'),on=()=>hero.classList.add('lit');
