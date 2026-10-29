@@ -1,289 +1,112 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NEED FOR SPEED | إدارة الموتوسيكلات</title>
 <style>
-:root{--bg:#080a0f;--panel:#11151e;--gold:#c8a96a;--text:#f4f4f4;--muted:#9ba3b2;--red:#d9473b}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input,select{font:inherit}
-.top{padding:22px 5%;border-bottom:1px solid #292d36;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:2px;color:var(--gold);font-size:22px}
-.top a{color:var(--text);text-decoration:none}
-main{width:min(1100px,92%);margin:32px auto}
-h1{font-size:27px;margin:0 0 8px}
-.sub{color:var(--muted);margin:0 0 26px;line-height:1.8}
-.panel{background:var(--panel);border:1px solid #292d36;border-radius:14px;padding:22px;margin-bottom:22px}
-h2{font-size:19px;margin:0 0 18px}
-.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-label{display:block;color:#c8ccd5;font-size:14px;margin-bottom:7px}
-input,select{width:100%;padding:12px;border:1px solid #343a48;border-radius:8px;background:#090c12;color:white;outline:none}
-input:focus,select:focus{border-color:var(--gold)}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-button,.button{border:0;border-radius:8px;padding:11px 17px;cursor:pointer;font-weight:bold}
-.primary{background:var(--gold);color:#111}
-.secondary{background:#272d39;color:white}
-.danger{background:#48201f;color:#ffb3ad}
-.message{margin-top:14px;color:var(--gold);line-height:1.7}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:680px}
-th,td{padding:13px 10px;border-bottom:1px solid #292d36;text-align:right}
-th{color:var(--gold);font-size:13px}
-td{font-size:14px}
-.tag{color:var(--muted)}
-.row-actions{display:flex;gap:7px}
-.row-actions button{padding:8px 10px}
-#dashboard{display:none}
-#loginScreen{max-width:430px;margin:65px auto}
-#loginScreen .panel{padding:28px}
-#loginMessage{color:#ffb3ad;line-height:1.7}
-@media(max-width:600px){main{margin:22px auto}.fields{grid-template-columns:1fr}.panel{padding:16px}.top{padding:18px 4%}h1{font-size:23px}}
+:root{--bg:#080a0f;--panel:#11151e;--gold:#c8a96a;--text:#f4f4f4;--muted:#9ba3b2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+button,input,select{font:inherit}.top{padding:22px 5%;border-bottom:1px solid #292d36;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:2px;color:var(--gold);font-size:22px}.top a{color:var(--text);text-decoration:none}
+main{width:min(900px,92%);margin:32px auto}h1{font-size:27px;margin:0 0 8px}.sub{color:var(--muted);line-height:1.8}
+.panel{background:var(--panel);border:1px solid #292d36;border-radius:14px;padding:22px;margin-bottom:22px}h2{font-size:19px;margin:0 0 18px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}label{display:block;color:#c8ccd5;font-size:14px;margin:17px 0 8px}
+input,select{width:100%;padding:12px;border:1px solid #343a48;border-radius:8px;background:#090c12;color:white;outline:none}input:focus,select:focus{border-color:var(--gold)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}button{border:0;border-radius:8px;padding:12px 17px;cursor:pointer;font-weight:bold}.primary{background:var(--gold);color:#111}.secondary{background:#272d39;color:white}
+.message{margin-top:14px;color:var(--gold);line-height:1.7}#dashboard{display:none}#loginMessage{min-height:20px;color:#ffaaa3;line-height:1.7;font-size:13px;text-align:center}
+
+/* ===== شاشة تسجيل الدخول بخلفية فيديو ===== */
+#loginScreen.nfs-login-stage{position:fixed;inset:0;z-index:50;isolation:isolate;padding:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#05070b}
+.nfs-bg-video{position:absolute;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.1) contrast(1.05)}
+.nfs-bg-shade{position:absolute;inset:0;z-index:-2;background:
+  radial-gradient(ellipse at center,rgba(5,7,11,.25) 0%,rgba(5,7,11,.72) 100%),
+  linear-gradient(180deg,rgba(5,7,11,.55) 0%,rgba(5,7,11,.15) 40%,rgba(5,7,11,.8) 100%)}
+.nfs-back{position:absolute;top:18px;inset-inline-start:5%;color:#fff;text-decoration:none;font-size:14px;padding:9px 14px;border:1px solid #ffffff33;border-radius:999px;background:#0a0c1299;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.nfs-back:hover{border-color:var(--gold);color:var(--gold)}
+.nfs-login-wrap{position:relative;width:100%;max-width:410px;padding:2px;border-radius:18px;background:linear-gradient(125deg,#8b5cf6,#ec4899,#d9473b,#c8a96a,#8b5cf6);background-size:300% 300%;animation:nfsGradient 7s ease infinite;box-shadow:0 25px 80px #000a}
+.nfs-login-card{width:100%;padding:38px 30px 25px;border-radius:16px;background:rgba(10,12,20,.72);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);animation:nfsEnter .65s ease both}
+.nfs-login-brand{color:var(--gold);font-size:15px;font-weight:900;letter-spacing:3px;text-align:center}.nfs-login-line{width:65px;height:3px;margin:17px auto 25px;border-radius:10px;background:linear-gradient(90deg,#8b5cf6,#ec4899,var(--gold))}
+.nfs-login-card h1{margin:0;color:#fff;font-size:28px;text-align:center}.nfs-login-subtitle{margin:12px 0 28px;color:#c3c7d2;font-size:14px;text-align:center}
+.nfs-login-form label{margin:17px 0 8px;color:#e3e4ea}.nfs-login-form input{min-height:48px;padding:12px 14px;border:1px solid #ffffff2e;border-radius:9px;background:rgba(10,12,20,.65);color:#fff}
+.nfs-login-form input::placeholder{color:#8d93a3}
+.nfs-login-button{width:100%;min-height:49px;margin-top:25px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border:1px solid #e3c887;border-radius:9px;background:linear-gradient(110deg,#c8a96a,#f0d69a,#c8a96a);background-size:200% auto;color:#111;font-weight:900;transition:transform .2s}
+.nfs-login-button:hover{background-position:right center;transform:translateY(-2px)}.nfs-login-footer{margin-top:24px;color:#8a91a3;font-size:10px;letter-spacing:3px;text-align:center}
+@keyframes nfsGradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@keyframes nfsEnter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){main{margin:22px auto}.fields{grid-template-columns:1fr}.panel{padding:16px}.top{padding:18px 4%}h1{font-size:23px}.nfs-login-card{padding:32px 22px 22px}}
+@media(prefers-reduced-motion:reduce){.nfs-login-wrap,.nfs-login-card{animation:none}}
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="brand">NEED FOR SPEED</div>
-  <a href="./index.html">العودة إلى الموقع ↗</a>
-</header>
+<section id="loginScreen" class="nfs-login-stage">
+<video class="nfs-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="./login-bg.mp4" type="video/mp4"></video>
+<div class="nfs-bg-shade"></div>
+<a class="nfs-back" href="./index.html">العودة إلى الموقع ↗</a>
+<div class="nfs-login-wrap"><div class="nfs-login-card">
+<div class="nfs-login-brand">NEED FOR SPEED</div><div class="nfs-login-line"></div>
+<h1>تسجيل الدخول</h1><p class="nfs-login-subtitle">لوحة التحكم في الموتوسيكلات</p>
+<form id="loginForm" class="nfs-login-form">
+<label for="username">اسم المستخدم</label><input id="username" name="username" type="text" placeholder="اكتب اسم المستخدم" autocomplete="username" required>
+<label for="password">كلمة المرور</label><input id="password" name="password" type="password" placeholder="اكتب كلمة المرور" autocomplete="current-password" required>
+<button class="nfs-login-button" type="submit"><span>دخول لوحة الإدارة</span><span aria-hidden="true">↗</span></button><p id="loginMessage" role="status"></p>
+</form><div class="nfs-login-footer">ADMIN ACCESS · NFS</div>
+</div></div></section>
 
+<div id="dashboard">
+<header class="top"><div class="brand">NEED FOR SPEED</div><a href="./index.html">العودة إلى الموقع ↗</a></header>
 <main>
-  <section id="loginScreen">
-    <div class="panel">
-      <h1>دخول الإدارة</h1>
-      <p class="sub">إدارة موديلات الموتوسيكلات وأسعارها ومواصفاتها.</p>
-      <form id="loginForm">
-        <label for="username">اسم المستخدم</label>
-        <input id="username" autocomplete="username" required>
-        <label for="password" style="margin-top:15px">كلمة المرور</label>
-        <input id="password" type="password" autocomplete="current-password" required>
-        <div class="actions">
-          <button class="primary" type="submit">تسجيل الدخول</button>
-        </div>
-        <p id="loginMessage" role="status"></p>
-      </form>
-    </div>
-  </section>
-
-  <section id="dashboard">
-    <h1>إدارة الموتوسيكلات</h1>
-    <p class="sub">إضافة الموديلات وتعديلها وحذفها. التغييرات محفوظة محليًا في هذا المتصفح.</p>
-
-    <section class="panel">
-      <h2 id="formTitle">إضافة موتوسيكل جديد</h2>
-      <form id="bikeForm">
-        <div class="fields">
-          <div><label for="bikeName">اسم الموتوسيكل</label><input id="bikeName" required maxlength="80"></div>
-          <div><label for="bikeType">الفئة</label>
-            <select id="bikeType"><option value="sport">رياضي</option><option value="cruiser">كروزر / كلاسيك</option><option value="city">مدينة</option></select>
-          </div>
-          <div><label for="bikeColor">اللون (HEX)</label><input id="bikeColor" type="text" value="#c8a96a" pattern="#[0-9a-fA-F]{6}" required></div>
-          <div><label for="bikeCC">سعة المحرك</label><input id="bikeCC" placeholder="250 سي سي" required maxlength="40"></div>
-          <div><label for="bikeHP">القوة</label><input id="bikeHP" placeholder="28 حصان" required maxlength="40"></div>
-          <div><label for="bikePrice">السعر بالجنيه</label><input id="bikePrice" placeholder="185,000" required maxlength="30"></div>
-        </div>
-        <div class="actions">
-          <button class="primary" type="submit" id="saveBike">حفظ الموتوسيكل</button>
-          <button class="secondary" type="button" id="cancelEdit" hidden>إلغاء التعديل</button>
-        </div>
-        <p class="message" id="formMessage" role="status"></p>
-      </form>
-    </section>
-
-    <section class="panel">
-      <h2>الموديلات الحالية (<span id="bikeCount">0</span>)</h2>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>الاسم</th><th>الفئة</th><th>المحرك</th><th>القوة</th><th>السعر</th><th>الإجراءات</th></tr></thead>
-          <tbody id="bikeRows"></tbody>
-        </table>
-      </div>
-      <p class="message" id="tableMessage" role="status"></p>
-      <div class="actions"><button class="secondary" type="button" id="logout">تسجيل الخروج</button></div>
-    </section>
-  </section>
+<h1>إدارة الموتوسيكلات</h1><p class="sub">إضافة موديلات جديدة إلى الموقع. التغييرات محفوظة في هذا المتصفح فقط.</p>
+<section class="panel"><h2>إضافة موتوسيكل جديد</h2>
+<form id="bikeForm"><div class="fields">
+<div><label for="bikeName">اسم الموتوسيكل</label><input id="bikeName" required maxlength="80"></div>
+<div><label for="bikeType">الفئة</label><select id="bikeType"><option value="sport">رياضي</option><option value="cruiser">كروزر / كلاسيك</option><option value="city">مدينة</option></select></div>
+<div><label for="bikeColor">اللون (HEX)</label><input id="bikeColor" type="text" value="#c8a96a" pattern="#[0-9a-fA-F]{6}" required></div>
+<div><label for="bikeCC">سعة المحرك</label><input id="bikeCC" placeholder="250 سي سي" required maxlength="40"></div>
+<div><label for="bikeHP">القوة</label><input id="bikeHP" placeholder="28 حصان" required maxlength="40"></div>
+<div><label for="bikePrice">السعر بالجنيه</label><input id="bikePrice" placeholder="185,000" required maxlength="30"></div>
+</div><div class="actions"><button class="primary" type="submit">حفظ الموتوسيكل</button><button class="secondary" type="button" id="logout">تسجيل الخروج</button></div><p class="message" id="formMessage" role="status"></p></form>
+</section>
+<section class="panel"><h2>ملاحظة</h2><p class="sub">تم إخفاء جدول الموديلات حسب طلبك. هذه النسخة تضيف موديلات جديدة، لكنها لا تعرض جدولًا لتعديل الموديلات الموجودة أو حذفها.</p></section>
 </main>
-
+</div>
 <script>
-const BIKES_STORAGE_KEY = "nfs_bikes_v1";
-
-/* بيانات الدخول التجريبية — غيّرها قبل التجربة */
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "NFS2026";
-
-let bikes = [];
-let editingIndex = -1;
-
-const $ = id => document.getElementById(id);
-
-function loadBikes() {
-  try {
-    const saved = localStorage.getItem(BIKES_STORAGE_KEY);
-    if (saved !== null) {
-      const parsed = JSON.parse(saved);
-      if (!Array.isArray(parsed)) throw new Error("بيانات غير صحيحة");
-      bikes = parsed;
-    } else {
-      $("tableMessage").textContent =
-        "لم يتم العثور على بيانات الموديلات. افتح الموقع الرئيسي أولًا من نفس المتصفح.";
-      bikes = [];
-    }
-  } catch (error) {
-    bikes = [];
-    $("tableMessage").textContent =
-      "تعذر قراءة البيانات المحلية. تأكد من فتح الموقع عبر GitHub Pages.";
-  }
+const BIKES_STORAGE_KEY="nfs_bikes_v1";
+const ADMIN_USER="admin";
+const ADMIN_PASS="NFS2026";
+let bikes=[];
+const $=id=>document.getElementById(id);
+const bgVideo=document.querySelector(".nfs-bg-video");
+function playBg(){if(bgVideo){const p=bgVideo.play();if(p&&p.catch)p.catch(()=>{});}}
+playBg();
+function loadBikes(){
+  try{
+    const saved=localStorage.getItem(BIKES_STORAGE_KEY);
+    if(saved!==null){const parsed=JSON.parse(saved);if(!Array.isArray(parsed))throw new Error("Invalid data");bikes=parsed;}
+    else{bikes=[];$("formMessage").textContent="لم يتم العثور على بيانات سابقة. افتح الموقع الرئيسي من نفس المتصفح أولًا.";}
+  }catch(error){bikes=[];$("formMessage").textContent="تعذر قراءة البيانات المحلية. تأكد من فتح الموقع عبر GitHub Pages.";}
 }
-
-function saveBikes() {
-  try {
-    localStorage.setItem(BIKES_STORAGE_KEY, JSON.stringify(bikes));
-    return true;
-  } catch (error) {
-    $("formMessage").textContent = "تعذر حفظ البيانات في المتصفح.";
-    return false;
-  }
+function saveBikes(){
+  try{localStorage.setItem(BIKES_STORAGE_KEY,JSON.stringify(bikes));return true;}
+  catch(error){$("formMessage").textContent="تعذر حفظ البيانات في المتصفح.";return false;}
 }
-
-function categoryName(type) {
-  return ({sport:"رياضي",cruiser:"كروزر / كلاسيك",city:"مدينة"})[type] || type;
-}
-
-function renderBikes() {
-  $("bikeCount").textContent = bikes.length;
-  const body = $("bikeRows");
-  body.replaceChildren();
-
-  bikes.forEach((bike, index) => {
-    const tr = document.createElement("tr");
-    [bike.n, categoryName(bike.t), bike.cc, bike.hp, bike.p + " ج.م"].forEach(value => {
-      const td = document.createElement("td");
-      td.textContent = value ?? "";
-      tr.appendChild(td);
-    });
-
-    const actions = document.createElement("td");
-    const wrap = document.createElement("div");
-    wrap.className = "row-actions";
-
-    const edit = document.createElement("button");
-    edit.className = "secondary";
-    edit.type = "button";
-    edit.textContent = "تعديل";
-    edit.addEventListener("click", () => editBike(index));
-
-    const remove = document.createElement("button");
-    remove.className = "danger";
-    remove.type = "button";
-    remove.textContent = "حذف";
-    remove.addEventListener("click", () => deleteBike(index));
-
-    wrap.append(edit, remove);
-    actions.appendChild(wrap);
-    tr.appendChild(actions);
-    body.appendChild(tr);
-  });
-}
-
-function resetForm() {
-  editingIndex = -1;
-  $("bikeForm").reset();
-  $("bikeColor").value = "#c8a96a";
-  $("formTitle").textContent = "إضافة موتوسيكل جديد";
-  $("saveBike").textContent = "حفظ الموتوسيكل";
-  $("cancelEdit").hidden = true;
-  $("formMessage").textContent = "";
-}
-
-function editBike(index) {
-  const bike = bikes[index];
-  if (!bike) return;
-  editingIndex = index;
-  $("bikeName").value = bike.n || "";
-  $("bikeType").value = bike.t || "sport";
-  $("bikeColor").value = bike.c || "#c8a96a";
-  $("bikeCC").value = bike.cc || "";
-  $("bikeHP").value = bike.hp || "";
-  $("bikePrice").value = bike.p || "";
-  $("formTitle").textContent = "تعديل بيانات الموتوسيكل";
-  $("saveBike").textContent = "حفظ التعديلات";
-  $("cancelEdit").hidden = false;
-  $("formMessage").textContent = "";
-  $("bikeForm").scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function deleteBike(index) {
-  const bike = bikes[index];
-  if (!bike) return;
-  if (!confirm("هل أنت متأكد من حذف " + bike.n + "؟")) return;
-
-  const previous = bikes.slice();
-  bikes.splice(index, 1);
-  if (!saveBikes()) {
-    bikes = previous;
-    return;
-  }
-  if (editingIndex === index) resetForm();
-  renderBikes();
-  $("tableMessage").textContent = "تم حذف الموتوسيكل وحفظ القائمة في هذا المتصفح.";
-}
-
-$("loginForm").addEventListener("submit", event => {
+$("loginForm").addEventListener("submit",event=>{
   event.preventDefault();
-  if ($("username").value === ADMIN_USER &&
-      $("password").value === ADMIN_PASS) {
-    $("loginScreen").style.display = "none";
-    $("dashboard").style.display = "block";
-    $("loginMessage").textContent = "";
-    loadBikes();
-    renderBikes();
-  } else {
-    $("loginMessage").textContent = "اسم المستخدم أو كلمة المرور غير صحيحة.";
-  }
+  if($("username").value===ADMIN_USER&&$("password").value===ADMIN_PASS){
+    $("loginScreen").style.display="none";$("dashboard").style.display="block";$("loginMessage").textContent="";
+    if(bgVideo)bgVideo.pause();loadBikes();
+  }else{$("loginMessage").textContent="اسم المستخدم أو كلمة المرور غير صحيحة.";}
 });
-
-$("bikeForm").addEventListener("submit", event => {
+$("bikeForm").addEventListener("submit",event=>{
   event.preventDefault();
-
-  const bike = {
-    n: $("bikeName").value.trim(),
-    t: $("bikeType").value,
-    c: $("bikeColor").value.trim(),
-    cc: $("bikeCC").value.trim(),
-    hp: $("bikeHP").value.trim(),
-    p: $("bikePrice").value.trim()
-  };
-
-  if (!/^#[0-9a-fA-F]{6}$/.test(bike.c)) {
-    $("formMessage").textContent = "اكتب اللون بصيغة HEX مثل #c8a96a.";
-    return;
-  }
-
-  const previous = bikes.slice();
-  if (editingIndex >= 0) bikes[editingIndex] = bike;
-  else bikes.push(bike);
-
-  if (!saveBikes()) {
-    bikes = previous;
-    return;
-  }
-
-  renderBikes();
-  resetForm();
-  $("formMessage").textContent = "تم حفظ البيانات بنجاح في هذا المتصفح.";
-  $("tableMessage").textContent =
-    "التعديلات محفوظة محليًا، ولا تظهر تلقائيًا للزوار على أجهزتهم الأخرى.";
+  const bike={n:$("bikeName").value.trim(),t:$("bikeType").value,c:$("bikeColor").value.trim(),cc:$("bikeCC").value.trim(),hp:$("bikeHP").value.trim(),p:$("bikePrice").value.trim()};
+  if(!/^#[0-9a-fA-F]{6}$/.test(bike.c)){$("formMessage").textContent="اكتب اللون بصيغة HEX مثل #c8a96a.";return;}
+  const previous=bikes.slice();bikes.push(bike);
+  if(!saveBikes()){bikes=previous;return;}
+  $("bikeForm").reset();$("bikeColor").value="#c8a96a";
+  $("formMessage").textContent="تم حفظ الموتوسيكل في هذا المتصفح. افتح الموقع الرئيسي من نفس المتصفح للتحقق من ظهوره.";
 });
-
-$("cancelEdit").addEventListener("click", resetForm);
-
-$("logout").addEventListener("click", () => {
-  $("dashboard").style.display = "none";
-  $("loginScreen").style.display = "block";
-  $("loginForm").reset();
-  resetForm();
+$("logout").addEventListener("click",()=>{
+  $("dashboard").style.display="none";$("loginScreen").style.display="flex";$("loginForm").reset();$("bikeForm").reset();$("bikeColor").value="#c8a96a";$("formMessage").textContent="";playBg();
 });
 </script>
 </body>
