@@ -477,9 +477,51 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
 .bikes-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:
   linear-gradient(180deg,var(--bg) 0%,rgba(11,12,15,0) 12%,rgba(11,12,15,0) 88%,var(--bg) 100%),
   rgba(11,12,15,.30)}
+
+/* ===== متسابق بالخوذة (ثابت أعلى الشمال) ===== */
+#pilot{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:12px;z-index:90;width:96px;height:96px;padding:0;border:0;background:none;cursor:pointer;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.65));-webkit-tap-highlight-color:transparent}
+#pilot svg{display:block;width:100%;height:100%;animation:pBob 3.2s ease-in-out infinite}
+#pilot:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:50%}
+@keyframes pBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+#pilot.rev svg{animation:pShake .09s linear 10}
+@keyframes pShake{0%{transform:translate(0,0)}25%{transform:translate(-1.5px,1px)}50%{transform:translate(1.5px,-1px)}75%{transform:translate(-1px,-1px)}100%{transform:translate(0,0)}}
+@media (max-width:700px){#pilot{width:66px;height:66px;left:8px}nav{flex-wrap:wrap;gap:10px;padding-left:76px}}
+@media (min-width:701px) and (max-width:1300px){nav{padding-left:112px}}
 </style>
 </head>
 <body>
+<button id="pilot" type="button" aria-label="اسمع المحرك">
+<svg viewBox="0 0 120 120" aria-hidden="true">
+<defs>
+<clipPath id="pClip"><circle cx="60" cy="60" r="57"/></clipPath>
+<clipPath id="pVc"><path d="M32 46 Q32 38 44 38 H76 Q88 38 88 46 V56 Q88 64 78 64 H42 Q32 64 32 56Z"/></clipPath>
+<linearGradient id="pHm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5483b"/><stop offset=".55" stop-color="#a42a21"/><stop offset="1" stop-color="#4a100c"/></linearGradient>
+<linearGradient id="pVz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3347"/><stop offset="1" stop-color="#07080c"/></linearGradient>
+<radialGradient id="pBg" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#262a35"/><stop offset="1" stop-color="#0b0c10"/></radialGradient>
+</defs>
+<circle cx="60" cy="60" r="58" fill="url(#pBg)"/>
+<g clip-path="url(#pClip)">
+  <g id="pBody">
+    <path d="M6 124 Q8 92 36 86 L84 86 Q112 92 114 124Z" fill="#1c1f27"/>
+    <path d="M14 114 Q18 97 34 91M106 114 Q102 97 86 91" stroke="#c8a96a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M46 86 L60 101 L74 86Z" fill="#0b0c10"/>
+    <rect x="52" y="74" width="16" height="16" fill="#15171d"/>
+  </g>
+  <g id="pHead">
+    <path d="M26 52 C26 26 40 12 60 12 C80 12 94 26 94 52 L94 66 C94 76 88 84 78 84 L42 84 C32 84 26 76 26 66Z" fill="url(#pHm)"/>
+    <path d="M55 12.3 H65 V38 H55Z" fill="#c8a96a"/>
+    <path d="M32 46 Q32 38 44 38 H76 Q88 38 88 46 V56 Q88 64 78 64 H42 Q32 64 32 56Z" fill="url(#pVz)" stroke="#05060a" stroke-width="1.5"/>
+    <g clip-path="url(#pVc)">
+      <g id="pEyes" style="filter:drop-shadow(0 0 3px #c8a96a)"><rect x="44" y="49" width="12" height="4" rx="2" fill="#f0dfb2"/><rect x="64" y="49" width="12" height="4" rx="2" fill="#f0dfb2"/></g>
+      <g id="pShine"><path d="M40 36 L52 36 L42 66 L30 66Z" fill="#fff" opacity=".16"/><path d="M56 36 L60 36 L50 66 L46 66Z" fill="#fff" opacity=".10"/></g>
+    </g>
+    <path d="M47 75 H73" stroke="#0b0c10" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
+  </g>
+</g>
+<circle cx="60" cy="60" r="57" fill="none" stroke="#c8a96a" stroke-opacity=".75" stroke-width="2"/>
+</svg>
+</button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="wheel" viewBox="0 0 200 200"><g fill="none" stroke="currentColor"><circle cx="100" cy="100" r="92" stroke-width="14"/><circle cx="100" cy="100" r="70" stroke-width="2"/><circle cx="100" cy="100" r="14" stroke-width="6"/><path stroke-width="3" d="M100 14v72M100 114v72M14 100h72M114 100h72M39 39l51 51M110 110l51 51M161 39l-51 51M90 110l-51 51"/></g></symbol>
 <symbol id="bike" viewBox="0 0 260 130">
@@ -543,7 +585,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-si
     <label>الاسم<input required name="n" autocomplete="name"></label>
     <label>رقم الموبايل<input required name="p" type="tel" inputmode="tel" pattern="01[0-9]{9}" title="رقم موبايل مصري من 11 رقم" autocomplete="tel"></label>
     <label>الموديل<select id="model" name="m"></select></label>
-    <button class="btn" type="submit">ابعت الطلب</button>
+    <button class="btn" type="submit">ابعت الطلب على واتساب</button>
   </form>
   <div id="ok" role="status"></div>
 </div></section>
@@ -613,8 +655,38 @@ sel.innerHTML=bikes.map(b=>`<option>${esc(b.n)}</option>`).join('');
 document.getElementById('filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;
 document.querySelectorAll('#filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw(b.dataset.f)};
 grid.onclick=e=>{const b=e.target.closest('button[data-m]');if(!b)return;sel.value=b.dataset.m;document.getElementById('book').scrollIntoView()};
-document.getElementById('form').onsubmit=e=>{e.preventDefault();const f=e.target,o=document.getElementById('ok');
-o.textContent='تم استلام طلبك يا '+f.n.value+'. هنكلمك على '+f.p.value+' لتأكيد تجربة '+f.m.value+'.';o.style.display='block';f.reset()};
+// ===== حجز تجربة القيادة عبر واتساب =====
+// ضع رقم الواتساب هنا بالصيغة الدولية بدون + أو صفر: مصر = 20 ثم الرقم بدون الصفر الأول
+// مثال: 01012345678  →  '201012345678'
+const WHATSAPP_NUMBER='201150178891';
+
+document.getElementById('form').onsubmit=e=>{
+  e.preventDefault();
+  const f=e.target,o=document.getElementById('ok');
+  const name=f.n.value.trim(),phone=f.p.value.trim(),model=f.m.value;
+  const bike=bikes.find(b=>b.n===model);
+  const lines=[
+    'السلام عليكم، عايز أحجز تجربة قيادة 🏍️',
+    '',
+    'الاسم: '+name,
+    'الموبايل: '+phone,
+    'الموديل: '+model
+  ];
+  if(bike)lines.push('السعة: '+bike.cc,'السعر: '+bike.p+' ج.م');
+  o.style.display='block';
+  if(!/^\d{11,15}$/.test(WHATSAPP_NUMBER)){
+    o.textContent='رقم الواتساب لسه ما اتضبطش في الكود (WHATSAPP_NUMBER).';
+    return;
+  }
+  const url='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(lines.join('\n'));
+  o.textContent='تمام يا '+name+'، هنفتحلك واتساب دلوقتي عشان تبعت الطلب. ';
+  const a=document.createElement('a');
+  a.href=url;a.target='_blank';a.rel='noopener';a.textContent='لو ماتفتحش اضغط هنا';a.style.color='var(--gold)';
+  o.appendChild(a);
+  const w=window.open(url,'_blank','noopener');
+  if(!w)location.href=url;
+  f.reset();
+};
 
 // تشغيل فيديو الخلفية
 const bv=document.getElementById('bikesVideo');
@@ -625,6 +697,29 @@ if(bv){
   if('IntersectionObserver' in window){
     new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)go();else bv.pause()}),{threshold:.05}).observe(bv.parentElement);
   }
+}
+
+// المتسابق: الخوذة تتابع حركة الماوس
+const pilot=document.getElementById('pilot');
+if(pilot){
+  const pHead=document.getElementById('pHead'),pEyes=document.getElementById('pEyes'),pShine=document.getElementById('pShine'),pBody=document.getElementById('pBody');
+  let tx=0,ty=0,cx=0,cy=0,raf=0;
+  const clamp=v=>Math.max(-1,Math.min(1,v));
+  const paint=()=>{
+    cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;
+    pHead.setAttribute('transform','translate('+(cx*4).toFixed(2)+' '+(cy*2.5).toFixed(2)+') rotate('+(cx*9).toFixed(2)+' 60 84)');
+    pEyes.setAttribute('transform','translate('+(cx*5).toFixed(2)+' '+(cy*3).toFixed(2)+')');
+    pShine.setAttribute('transform','translate('+(-cx*8).toFixed(2)+' 0)');
+    pBody.setAttribute('transform','translate('+(-cx*1.5).toFixed(2)+' 0)');
+    raf=(Math.abs(tx-cx)+Math.abs(ty-cy)>.002)?requestAnimationFrame(paint):0;
+  };
+  addEventListener('pointermove',e=>{
+    const r=pilot.getBoundingClientRect();
+    tx=clamp((e.clientX-(r.left+r.width/2))/(innerWidth*.5));
+    ty=clamp((e.clientY-(r.top+r.height/2))/(innerHeight*.5));
+    if(!raf)raf=requestAnimationFrame(paint);
+  },{passive:true});
+  pilot.addEventListener('click',()=>{rev();pilot.classList.add('rev');setTimeout(()=>pilot.classList.remove('rev'),1000)});
 }
 
 // headlight turns on when the pointer reaches the hero
